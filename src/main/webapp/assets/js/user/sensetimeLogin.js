@@ -8,7 +8,7 @@ var lang = {
 	'cn.verficodeNull' : '验证码不能为空',
 	'cn.verficodeWrong' : '验证码错误，请重新输入！',
 	'cn.userpassWrong' : '用户名或密码错误，请重新输入！',
-	'cn.faceRecog' : 'portal-demo',
+	'cn.faceRecog' : '商汤软件产品运营平台',
 	
 	'en.loginBT' : 'Login',
 	'en.loginUser' : 'User Name',
@@ -19,7 +19,7 @@ var lang = {
 	'en.verficodeNull' : 'Please enter Verification Code',
 	'en.verficodeWrong' : 'Verification Code is incorrectly entered, please reinput!',
 	'en.userpassWrong' : 'User Name or Password is incorrectly entered, please reinput!',
-	'en.faceRecog' : 'portal-demo',
+	'en.faceRecog' : 'Sensetime Platform',
 	
 	'cn.szx' : '只支持数字、字母、下划线、点、@、横杠',
 	'en.szx' : 'only support numbers、letters、underlines、point、@、-',
