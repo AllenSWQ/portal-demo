@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.portal.dao.UserMapper">
+
+	<resultMap id="BaseResultMap" type="com.portal.model.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+		<result column="brand_id" property="brand_id" jdbcType="INTEGER" />
+		<result column="brand_cn" property="brand_cn" jdbcType="VARCHAR" />
+		<result column="brand_en" property="brand_en" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="contact" property="contact" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="roleid" property="roleid" jdbcType="INTEGER" />
+		<result column="rolename" property="rolename" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="fuser" property="fuser" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, pwd, brand_id, email, contact, phone, state, fuser, type, create_time
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.portal.model.User">
+		<selectKey resultType="Integer" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null and name != ''">
+				name,
+			</if>
+			<if test="pwd != null and pwd != ''">
+				pwd,
+			</if>
+			<choose>
+				<when test="brand_id != null and brand_id != ''">
+					brand_id,
+				</when>
+				<otherwise>
+					brand_id,
+				</otherwise>
+			</choose>
+			<if test="email != null and email != ''">
+				email,
+			</if>
+			<if test="contact != null and contact != ''">
+				contact,
+			</if>
+			<if test="phone != null and phone != ''">
+				phone,
+			</if>
+			<if test="fuser != null and fuser != ''">
+				fuser,
+			</if>
+			<choose>
+				<when test="type != null and type != ''">
+					type,
+				</when>
+				<otherwise>
+					type,
+				</otherwise>
+			</choose>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null and name != ''">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null and pwd != ''">
+				#{pwd,jdbcType=VARCHAR},
+			</if>
+			<choose>
+				<when test="brand_id != null and brand_id != ''">
+					#{brand_id,jdbcType=INTEGER},
+				</when>
+				<otherwise>
+					0,
+				</otherwise>
+			</choose>
+			<if test="email != null and email != ''">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="contact != null and contact != ''">
+				#{contact,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="fuser != null and fuser != ''">
+				#{fuser,jdbcType=INTEGER},
+			</if>
+			<choose>
+				<when test="type != null and type != ''">
+					#{type,jdbcType=INTEGER},
+				</when>
+				<otherwise>
+					0,
+				</otherwise>
+			</choose>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.portal.model.User">
+		update user
+		<set>
+			<if test="email != null and email != ''">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="contact != null and contact != ''">
+				contact = #{contact,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null and pwd != ''">
+				pwd = #{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="brand_id != null and brand_id != ''">
+				brand_id = #{brand_id,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null and state != ''">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			update_time = CURRENT_TIMESTAMP
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.portal.model.User">
+		update user
+		set
+		pwd = #{pwd,jdbcType=VARCHAR},
+		email =
+		#{email,jdbcType=VARCHAR},
+		create_time =
+		#{create_time,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getAll" resultMap="BaseResultMap" parameterType="Map">
+		select u.id,u.pwd,u.`name`,u.brand_id,b.brand_cn,b.brand_en,u.email,u.contact,u.phone,u.state,u.create_time,r.id as roleid,r.`name` as rolename,u.`type`
+		from `user` u 
+		left join user_role ur 
+		on (u.id = ur.userid) 
+		left join role r 
+		on (ur.roleid = r.id)
+		left join brand b
+		on (u.brand_id = b.id)
+		<where>
+			u.id != 1
+			and
+			u.state != 3
+			<if test="search != null and search != ''">
+				and ( u.name like '%${search}%' or u.email like '%${search}%' )
+			</if>
+			<if test="params.brand_id != null and params.brand_id != ''">
+				and `brand_id` = '${params.brand_id}'
+			</if>
+			<choose>
+				<when test="params.fuser != null and params.fuser != ''">
+					and `fuser` = '${params.fuser}'
+				</when>
+				<otherwise>
+					and `fuser` = 1
+				</otherwise>
+			</choose>
+		</where>
+		<if test="sort !=null and sort !=''">
+			order by u.${sort} ${order}
+		</if>
+		limit ${offset},${limit}
+	</select>
+
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) 
+		from user u 
+		left join user_role ur 
+		on (u.id = ur.userid) 
+		left join role r 
+		on (ur.roleid = r.id)
+		left join brand b
+		on (u.brand_id = b.id)
+		<where>
+			u.id != 1
+			and
+			u.state != 3
+			<if test="search != null and search != ''">
+				and ( u.name like '%${search}%' or u.email like '%${search}%' )
+			</if>
+			<if test="params.brand_id != null and params.brand_id != ''">
+				and `brand_id` = '${params.brand_id}'
+			</if>
+			<choose>
+				<when test="params.fuser != null and params.fuser != ''">
+					and `fuser` = '${params.fuser}'
+				</when>
+				<otherwise>
+					and `fuser` = 1
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
+	<resultMap type="com.portal.model.User" id="userRoleResultMap"
+		extends="BaseResultMap">
+		<collection property="roles" ofType="com.portal.model.Role">
+			<id property="id" column="id" />
+			<result property="name" column="name" />
+		</collection>
+	</resultMap>
+
+	<select id="getAllRole" resultMap="aRoleResultMap" parameterType="Map">
+		SELECT
+		*
+		FROM
+		role
+		<where>
+			<if test="search != null and search != ''">
+				( id like '%${search}%' or name like '%${search}%' )
+			</if>
+			<if test="params.searchId != null and params.searchId != ''">
+				and id like '%${params.searchId}%'
+			</if>
+			<if test="params.searchName != null and params.searchName != ''">
+				and name like '%${params.searchName}%'
+			</if>
+		</where>
+		<if test="sort !=null and sort !=''">
+			order by ${sort} ${order}
+		</if>
+		limit ${offset},${limit}
+	</select>
+	
+	<select id="getRoleCount" resultType="java.lang.Integer">
+		select count(*) from role
+		<where>
+			<if test="search != null and search != ''">
+				( id like '%${search}%' or name like '%${search}%' )
+			</if>
+			<if test="params.searchId != null and params.searchId != ''">
+				and id like '%${params.searchId}%'
+			</if>
+			<if test="params.searchName != null and params.searchName != ''">
+				and name like '%${params.searchName}%'
+			</if>
+		</where>
+	</select>
+
+	<resultMap type="com.portal.model.Permission" id="permissionResultMap"
+		extends="BaseResultMap">
+		<id property="id" column="id" />
+		<result property="cn_name" column="cn_name" />
+		<result property="en_name" column="en_name" />
+		<result property="describe" column="describe" />
+		<result property="state" column="state" />
+		<result property="flevel" column="flevel" />
+		<result property="url" column="url" />
+		<result property="ptype" column="ptype" />
+	</resultMap>
+
+	<select id="getAllPerm" resultMap="permissionResultMap">
+		SELECT * FROM permission
+	</select>
+
+	<resultMap type="com.portal.model.User" id="aRoleResultMap"
+		extends="BaseResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<insert id="addurole" parameterType="java.lang.Integer">
+		INSERT INTO
+		user_role(userid, roleid) VALUES (${uid}, ${uname})
+	</insert>
+
+	<select id="isrole" resultMap="aRoleResultMap">
+		SELECT roleid id, userid name FROM
+		user_role
+		where userid = ${userid}
+	</select>
+
+	<delete id="delurole" parameterType="java.lang.Integer">
+		delete from user_role
+		where
+		userid = ${uid}
+	</delete>
+
+	<select id="getRoleUser" parameterType="com.portal.model.User"
+		resultMap="BaseResultMap">
+		select distinct user.name from user INNER JOIN user_role
+		ON
+		user.id = user_role.userid where user_role.roleid = ${roleid}
+	</select>
+
+	<select id="Login" parameterType="com.portal.model.User"
+		resultMap="BaseResultMap">
+		select * from user where name = #{name} and pwd = #{pwd}
+		and state != 3
+	</select>
+
+	<delete id="delete" parameterType="list">
+		delete from user where id in
+		<foreach collection="list" item="ids" open="(" separator=","
+			close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<select id="getUserMenu" resultMap="permissionResultMap"
+		parameterType="java.lang.Integer">
+		select distinct
+		p.id,
+		p.cn_name,
+		p.en_name,
+		p.icon,
+		p.flevel,
+		p.state,
+		p.url,
+		p.ptype
+		from
+		permission p
+		inner join role_permission r on (p.id = r.pid)
+		inner join user_role u on 
+		(u.roleid = r.rid AND userid = ${userid})
+		where
+		p.id != 1
+		order by p.id asc, p.flevel asc
+	</select>
+
+	<insert id="logMsg" parameterType="com.portal.model.User">
+		insert into logdata
+		(`user_id`, `user_name`, `ip`, `cn_msg`, `en_msg`, `status`, `result`)
+		values 
+		(
+		#{user_id},
+		#{user_name},
+		#{ip},
+		#{cn_msg},
+		#{en_msg},
+		#{status},
+		#{result}
+		)
+	</insert>
+	
+	<select id="getUserByUserName" resultType="java.lang.Integer">
+		select count(*) from `user`
+		where state != 3 and name = #{name,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getUserByEmail" resultType="java.lang.Integer">
+		select count(*) from `user`
+		where state != 3 and email = #{email,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getUserByEmailForgetPass" resultMap="BaseResultMap">
+		select * from user
+		where state != 3 and email = #{email,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="resetPassByEmail">
+		update `user`
+		set
+		pwd = #{pwd,jdbcType=VARCHAR},
+		update_time = CURRENT_TIMESTAMP
+		where email = #{email,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateSubaccountState">
+		update user
+		set
+		state = #{state,jdbcType=INTEGER},
+		update_time = CURRENT_TIMESTAMP
+		where fuser = #{userid,jdbcType=INTEGER}
+	</update>
+
+	<select id="getSubUserMenu" resultMap="permissionResultMap"
+		parameterType="java.lang.Integer">
+		SELECT DISTINCT
+		p.id,
+		p.cn_name,
+		p.en_name,
+		p.icon,
+		p.flevel,
+		p.state,
+		p.url,
+		p.ptype
+		FROM
+		permission p
+		INNER JOIN subaccount_permission r ON (p.id = r.pid and r.uid = #{userid,jdbcType=VARCHAR})
+		WHERE
+		p.id != 1
+		ORDER BY
+		p.id ASC,
+		p.flevel ASC
+	</select>
+
+	<delete id="deleteSubPerByFuserRid">
+		DELETE
+		FROM
+		subaccount_permission
+		WHERE
+		uid IN (
+		SELECT
+		id
+		FROM
+		`user`
+		WHERE
+		fuser = #{userid,jdbcType=VARCHAR}
+		)
+		AND pid NOT IN (
+		SELECT
+		pid
+		FROM
+		role_permission
+		WHERE
+		rid = #{roleid,jdbcType=VARCHAR}
+		)
+	</delete>
+	
+	<delete id="insertUserBrand" parameterType="list">
+		insert into user_brand (userid, brandid)
+		values 
+		<foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userid,jdbcType=INTEGER},#{item.brandid,jdbcType=INTEGER})
+        </foreach>
+	</delete>
+	
+	<select id="getUserBrandSelectByID" resultType="java.lang.String"
+		parameterType="java.lang.Integer">
+		select brandid from user_brand
+		where userid = #{uid,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteUserBrandByID" parameterType="java.lang.Integer">
+		delete from user_brand
+		where userid = #{uid,jdbcType=INTEGER}
+	</delete>
+
+</mapper>

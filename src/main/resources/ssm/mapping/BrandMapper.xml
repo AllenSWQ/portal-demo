@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.portal.dao.BrandMapper">
+
+	<resultMap id="BrandResultMap" type="com.portal.model.Brand">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="brand_en" property="brand_en" jdbcType="VARCHAR" />
+		<result column="brand_cn" property="brand_cn" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="getSelect" resultMap="BrandResultMap" parameterType="Map">
+		select * from `brand`
+		<where>
+			1 = 1
+			<if test="params.mul_uid != null and params.mul_uid != 'null' and params.mul_uid != ''">
+				and id in (
+					SELECT
+						brandid
+					FROM
+						user_brand
+					WHERE
+						userid = '${params.mul_uid}'
+				)
+			</if>
+		</where>
+		order by brand_en asc
+	</select>
+
+	<select id="getAll" resultMap="BrandResultMap" parameterType="Map">
+		select * from `brand`
+		<where>
+			1 = 1
+			<if test="search != null and search != ''">
+				and ( brand_en like '%${search}%' or brand_cn like '%${search}%' )
+			</if>
+			<if test="params.mul_uid != null and params.mul_uid != 'null' and params.mul_uid != ''">
+				and id in (
+					SELECT
+						brandid
+					FROM
+						user_brand
+					WHERE
+						userid = '${params.mul_uid}'
+				)
+			</if>
+		</where>
+		<if test="sort !=null and sort !=''">
+			order by ${sort} ${order}
+		</if>
+		limit ${offset},${limit}
+	</select>
+
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from `brand`
+		<where>
+			1 = 1
+			<if test="search != null and search != ''">
+				and ( brand_en like '%${search}%' or brand_cn like '%${search}%' )
+			</if>
+			<if test="params.mul_uid != null and params.mul_uid != 'null' and params.mul_uid != ''">
+				and id in (
+					SELECT
+						brandid
+					FROM
+						user_brand
+					WHERE
+						userid = '${params.mul_uid}'
+				)
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.portal.model.Brand">
+		<selectKey resultType="Integer" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into brand
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="brand_en != null and brand_en != ''">
+				brand_en,
+			</if>
+			<if test="brand_cn != null and brand_cn != ''">
+				brand_cn,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="brand_en != null and brand_en != ''">
+				#{brand_en,jdbcType=VARCHAR},
+			</if>
+			<if test="brand_cn != null and brand_cn != ''">
+				#{brand_cn,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="getBrandByCode" resultType="java.lang.Integer">
+		select count(*) from `brand`
+		where brand_en = #{brand_en,jdbcType=VARCHAR}
+		or brand_cn = #{brand_cn,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.portal.model.Brand">
+		update `brand`
+		<set>
+			<if test="brand_en != null and brand_en != ''">
+				brand_en = #{brand_en,jdbcType=VARCHAR},
+			</if>
+			<if test="brand_cn != null and brand_cn != ''">
+				brand_cn = #{brand_cn,jdbcType=VARCHAR},
+			</if>
+			update_time = CURRENT_TIMESTAMP
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteByID" parameterType="java.lang.Integer">
+		delete from `brand` where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<update id="updateUserState" parameterType="java.lang.Integer">
+		update user
+		set
+		state = 3,
+		update_time = CURRENT_TIMESTAMP
+		where brand_id = #{brand_id,jdbcType=INTEGER}
+	</update>
+
+	<delete id="deluroleByBrandId" parameterType="java.lang.Integer">
+		DELETE ur
+		FROM
+		user_role ur
+		JOIN `user` u ON ur.userid = u.id
+		where brand_id =
+		#{brand_id,jdbcType=INTEGER}
+	</delete>
+
+</mapper>

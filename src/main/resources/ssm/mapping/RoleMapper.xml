@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.portal.dao.RoleMapper">
+
+	<resultMap id="BaseResultMap" type="com.portal.model.Role">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, name
+	</sql>
+	
+	<select id="getRoleList" resultMap="BaseResultMap">
+		select * from role order by id asc
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from role
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from role
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="com.portal.model.Role">
+		insert into role (id, name)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.portal.model.Role">
+		<selectKey resultType="Integer" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.portal.model.Role">
+		update role
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.portal.model.Role">
+		update role
+		set
+		name = #{name,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getAll" resultMap="BaseResultMap" parameterType="Map">
+		select * from role
+		<where>
+			<if test="search != null and search != ''">
+				( id like '%${search}%' or name like '%${search}%' )
+			</if>
+			<if test="params.searchId != null and params.searchId != ''">
+				and id like '%${params.searchId}%'
+			</if>
+			<if test="params.searchName != null and params.searchName != ''">
+				and name like '%${params.searchName}%'
+			</if>
+		</where>
+		<if test="sort !=null and sort !=''">
+			order by ${sort} ${order}
+		</if>
+		limit ${offset},${limit}
+	</select>
+
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from role
+		<where>
+			<if test="search != null and search != ''">
+				( id like '%${search}%' or name like '%${search}%' )
+			</if>
+			<if test="params.searchId != null and params.searchId != ''">
+				and id like '%${params.searchId}%'
+			</if>
+			<if test="params.searchName != null and params.searchName != ''">
+				and name like '%${params.searchName}%'
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="rolePerResultMap" type="com.portal.model.RolePer">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result property="rid" column="rid" />
+		<result property="pid" column="pid" />
+	</resultMap>
+
+	<select id="getrolePers" resultMap="rolePerResultMap">
+		select * from role_permission
+		where rid = ${roleperid}
+	</select>
+
+	<insert id="addrolePer" parameterType="com.portal.model.RolePer">
+		insert into
+		role_permission (rid, pid)
+		values (#{rid}, #{pid})
+	</insert>
+
+	<delete id="delrolePer" parameterType="com.portal.model.RolePer">
+		delete from
+		role_permission where rid=#{rid} and pid=#{pid}
+	</delete>
+
+	<insert id="addPer" parameterType="com.portal.model.Permission">
+		<selectKey resultType="Integer" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into `permission`
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cn_name != null and cn_name != ''">
+				cn_name,
+			</if>
+			<if test="en_name != null and en_name != ''">
+				en_name,
+			</if>
+			<if test="describe != null and describe != ''">
+				`describe`,
+			</if>
+			<if test="icon != null and icon != ''">
+				`icon`,
+			</if>
+			<if test="flevel != null and flevel != ''">
+				flevel,
+			</if>
+			<if test="url != null and url != ''">
+				url,
+			</if>
+			<if test="ptype != null and ptype != ''">
+				ptype,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cn_name != null and cn_name != ''">
+				#{cn_name,jdbcType=VARCHAR},
+			</if>
+			<if test="en_name != null and en_name != ''">
+				#{en_name,jdbcType=VARCHAR},
+			</if>
+			<if test="describe != null and describe != ''">
+				#{describe,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null and icon != ''">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="flevel != null and flevel != ''">
+				#{flevel,jdbcType=INTEGER},
+			</if>
+			<if test="url != null and url != ''">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="ptype != null and ptype != ''">
+				#{ptype,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="editPer" parameterType="com.portal.model.Permission">
+		update `permission`
+		set
+		`cn_name`
+		= #{cn_name,jdbcType=VARCHAR},
+		`en_name`
+		= #{en_name,jdbcType=VARCHAR},
+		`describe` = #{describe,jdbcType=VARCHAR},
+		`icon` = #{icon,jdbcType=VARCHAR},
+		`url` = #{url,jdbcType=VARCHAR},
+		`ptype` = #{ptype,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="setPerState" parameterType="com.portal.model.Permission">
+		update `permission`
+		set
+		`state` = #{val}
+		where id = #{state}
+	</update>
+
+	<delete id="delPer" parameterType="java.lang.Integer">
+		delete from `permission` where
+		id = #{id}
+	</delete>
+	
+	<delete id="delPerRole" parameterType="java.lang.Integer">
+		delete from
+		role_permission where pid = #{id}
+	</delete>
+	
+	<delete id="delPerRoleByRoleId" parameterType="java.lang.Integer">
+		delete from
+		role_permission where rid = #{id}
+	</delete>
+	
+	<delete id="delUserRoleByRoleId" parameterType="java.lang.Integer">
+		delete from
+		user_role where roleid = #{id}
+	</delete>
+
+	<select id="getperstate" resultType="java.lang.Integer">
+		select count(*) from
+		`permission` where flevel = #{fid}
+	</select>
+
+	<delete id="delete" parameterType="list">
+		delete from role where id in
+		<foreach collection="list" item="ids" open="(" separator=","
+			close=")">
+			#{ids}
+		</foreach>
+	</delete>
+	
+	<select id="getRoleByRoleName" resultType="java.lang.Integer">
+		select count(*) from `role`
+		where name = #{name,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getSelect" resultMap="BaseResultMap" parameterType="Map">
+		select * from `role`
+		order by id asc
+	</select>
+
+	<delete id="deleteSubPerByRidPid">
+		DELETE
+		FROM
+		subaccount_permission
+		WHERE
+		uid IN (
+		SELECT
+		id
+		FROM
+		`user`
+		WHERE
+		fuser IN (
+		SELECT
+		userid
+		FROM
+		user_role
+		WHERE
+		roleid = #{rid,jdbcType=VARCHAR}
+		)
+		)
+		AND pid = #{pid,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteSubPerByRid">
+		DELETE
+		FROM
+		subaccount_permission
+		WHERE
+		uid IN (
+		SELECT
+		id
+		FROM
+		`user`
+		WHERE
+		fuser IN (
+		SELECT
+		userid
+		FROM
+		user_role
+		WHERE
+		roleid = #{rid,jdbcType=VARCHAR}
+		)
+		)
+	</delete>
+
+</mapper>
