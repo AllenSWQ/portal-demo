@@ -1,0 +1,141 @@
+div.box * {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+div.box img {
+	border: 0 none;
+}
+
+.box {
+	/* background: #1a529c */
+	float: right;
+	width: 125px;
+}
+/*Ö÷µ¼º½²Ëµ¥*/
+#nav-menu {
+	height: 50px;
+}
+
+#nav-menu .container {
+	position: relative;
+	overflow: visible;
+	z-index: 99;
+}
+
+#nav-menu .menu {
+	/* padding: 0 0 0 14px; */
+}
+
+#nav-menu .menu li {
+	position: relative;
+	float: right;
+	/* padding: 0 8px 0 5px; */
+	display: inline;
+	font-size: 14px;
+}
+
+#nav-menu .menu li h3 {
+	font-weight: normal;
+	display: inline-block;
+	float: left;
+}
+
+#nav-menu .menu li a.xialaguang {
+	display: inline;
+	color: #428bca;
+	height: 50px;
+	text-decoration: underline;
+	text-align: center;
+}
+
+#nav-menu .menu li a.selected,#nav-menu .menu li a.navhover/* ,#nav-menu .menu li a.xialaguang:hover */
+	{
+	color: #1a529c;
+}
+
+#nav-menu .menu li a.navhover/* ,#nav-menu .menu li a.xialaguang:hover */ {
+	background-color: #FFF;
+}
+
+#nav-menu .menu li a.xialaguang span {
+	height: 50px;
+	line-height: 50px;
+	display: inline-block;
+	font-weight: bolder;
+}
+
+#nav-menu .menu li a.selected span,#nav-menu .menu li a.navhover span/* ,#nav-menu .menu li a.xialaguang:hover span */
+	{
+	cursor: pointer;
+}
+
+#nav-menu .menu li a.navhover span/* ,#nav-menu .menu li a.xialaguang:hover span */
+	{
+	width: 125px;
+}
+
+#nav-menu .menu ul.children {
+	display: none;
+	position: absolute;
+	top: 60px;
+	/* left: 8px; */
+	right: 0px;
+	width: 125px;
+	background: #2a3845;
+	border: 1px solid #777;
+	line-height: normal;
+	/* border-radius: 8px; */
+	box-shadow:0px 0px 20px #000;
+}
+
+#nav-menu .menu ul.children li {
+	width: 121px;
+	height: 30px;
+	padding: 0px;
+	display: inline-block;
+	font-size: 12px;
+	border-bottom: 1px solid #555c64;
+}
+
+#nav-menu .menu ul.children li.navBottom {
+	border-bottom: 0px;
+}
+
+#nav-menu .menu ul.children li h3 {
+	display: block;
+	width: 100%;
+}
+
+#nav-menu .menu ul.children li a {
+	width: 123px;
+	height: 30px;
+	line-height: 16px;
+	overflow: hidden;
+	padding: 3px 0px;
+	display: block;
+	color: #FFF;
+	text-align: center;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+#nav-menu .menu ul.children li a:hover {
+	/* background-color: #2f6fad;
+	text-decoration: none;
+	color: #fff;
+	width: 123px;
+	margin-left: 0px;
+	border-radius: 8px; */
+	color: #428bca;
+}
+
+.trangle {
+	display: none;
+	width: 0;
+    margin-top: -6px;
+    border-right: 8px solid #fff;
+    border-bottom: 6px solid #555c64;
+    border-left: 8px solid #fff;
+}

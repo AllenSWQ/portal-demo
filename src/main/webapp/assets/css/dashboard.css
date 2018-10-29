@@ -1,0 +1,512 @@
+@CHARSET "UTF-8";
+/* 首页样式 */
+.dashboard-top {
+	border: 1px solid #dddddd;
+	padding: 20px!important;
+	border-radius: 5px;
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fdfdfd),color-stop(1,#e5eaf0));
+}
+.dashboard-head {
+	border: 1px solid #dddddd;
+	/* border-top-right-radius: 5px;
+    border-top-left-radius: 5px; */
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fdfdfd),color-stop(1,#e5eaf0));
+	height: 60px;
+	line-height: 60px;
+	color: #333;
+  	font: 14px/14px Arial,"微软雅黑";
+  	font-weight: bold;
+  	padding: 22px;
+}
+.dashboard-body {
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	/* border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px; */
+}
+.btn.btn-default.active {
+	outline: 5px auto -webkit-focus-ring-color;
+  	outline-offset: -2px;
+  	/* background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#6aabe3),color-stop(1,#4083be)); */
+  	background-color: #899eb5;
+  	color: white;
+}
+
+.dashboard-up-body {
+	height: 150px;
+	/* background-color: #f5f5f5; */
+}
+.dashboard-icon {
+	margin: 0px 12px;
+}
+.dashboard-data-td {
+	padding-left: 5px;
+}
+.dashboard-table .dashboard-icon-td {
+	width: 40%
+}
+.statistic-box {
+	padding: 20px;
+}
+.statistic-box .statistic-title {
+	font-size: 16px;
+}
+.statistic-box .statistic-value {
+	font-size: 22px;
+}
+@media screen and (min-width: 992px) {
+	.dashboard-up-body {
+		height: 95px;
+		/* background-color: #f5f5f5; */
+	}
+	.dashboard-icon {
+		margin: 0px 10px;
+	}
+	.dashboard-icon-large {
+		margin: 0px 20px;
+	}
+	.dashboard-data-td {
+		text-align: left;
+	}
+	.dashboard-table .dashboard-icon-td {
+		width: 28%
+	}
+	.statistic-box {
+		padding: 10px 20px;
+		margin: 15px;
+		background-color: white;
+	}
+	.statistic-box .statistic-title {
+		font-size: 12px;
+		text-transform: none;
+	}
+	.statistic-box .statistic-value {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.col-sm-6 {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.col-sm-large {
+		width: 33%;
+		padding-right: 8%;
+    	padding-left: 8%;
+	}
+	.dashboard-table .dashboard-icon-td-large {
+		width: 40%
+	}
+	.dashboard-head {
+		border: 1px solid #dddddd;
+		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fdfdfd),color-stop(1,#e5eaf0));
+		height: 50px;
+		line-height: 50px;
+		color: #333;
+	  	font: 14px/14px Arial,"微软雅黑";
+	  	font-weight: bold;
+	  	padding: 17px;
+	}
+	.dashboard_chart {
+		width:92%;
+		height:340px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+	}
+	.dashboard_pie {
+		width:100%;
+		height:415px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+		padding:20px 0px;
+	}
+	.setDateDiv {
+		width:100%;
+		height:75px;
+		padding:20px 72px;
+	}
+}
+@media screen and (min-width: 1130px) {
+	.dashboard-up-body {
+		height: 95px;
+		/* background-color: #f5f5f5; */
+	}
+	.dashboard-icon {
+		margin: 0px 10px;
+	}
+	.dashboard-icon-large {
+		margin: 0px 20px;
+	}
+	.dashboard-data-td {
+		text-align: left;
+	}
+	.dashboard-table .dashboard-icon-td {
+		width: 28%
+	}
+	.statistic-box {
+		padding: 10px 20px;
+		margin: 15px;
+		background-color: white;
+	}
+	.statistic-box .statistic-title {
+		font-size: 12px;
+		text-transform: none;
+	}
+	.statistic-box .statistic-value {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.col-sm-6 {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.col-sm-large {
+		width: 33%;
+		padding-right: 8%;
+    	padding-left: 8%;
+	}
+	.dashboard-table .dashboard-icon-td-large {
+		width: 40%
+	}
+	.dashboard-head {
+		border: 1px solid #dddddd;
+		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fdfdfd),color-stop(1,#e5eaf0));
+		height: 50px;
+		line-height: 50px;
+		color: #333;
+	  	font: 14px/14px Arial,"微软雅黑";
+	  	font-weight: bold;
+	  	padding: 17px;
+	}
+	.dashboard_chart {
+		width:92%;
+		height:290px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+	}
+	.dashboard_pie {
+		width:100%;
+		height:365px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+		padding:20px 10px;
+	}
+	.setDateDiv {
+		width:100%;
+		height:75px;
+		padding:20px 72px;
+	}
+}
+@media screen and (min-width: 1200px) {
+	.dashboard-up-body {
+		height: 95px;
+		/* background-color: #f5f5f5; */
+	}
+	.dashboard-icon {
+		margin: 0px 10px;
+	}
+	.dashboard-icon-large {
+		margin: 0px 20px;
+	}
+	.dashboard-data-td {
+		text-align: left;
+	}
+	.dashboard-table .dashboard-icon-td {
+		width: 28%
+	}
+	.statistic-box {
+		padding: 10px 20px;
+		margin: 15px;
+		background-color: white;
+	}
+	.statistic-box .statistic-title {
+		font-size: 12px;
+		text-transform: none;
+	}
+	.statistic-box .statistic-value {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.col-sm-6 {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.col-sm-large {
+		width: 33%;
+		padding-right: 8%;
+    	padding-left: 8%;
+	}
+	.dashboard-table .dashboard-icon-td-large {
+		width: 40%
+	}
+	.dashboard-head {
+		border: 1px solid #dddddd;
+		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fdfdfd),color-stop(1,#e5eaf0));
+		height: 50px;
+		line-height: 50px;
+		color: #333;
+	  	font: 14px/14px Arial,"微软雅黑";
+	  	font-weight: bold;
+	  	padding: 17px;
+	}
+	.dashboard_chart {
+		width:92%;
+		height:450px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+	}
+	.dashboard_pie {
+		width:100%;
+		height:525px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+		padding:20px 10px;
+	}
+	.setDateDiv {
+		width:100%;
+		height:75px;
+		padding:20px 72px;
+	}
+}
+@media screen and (min-width: 1250px) {
+	.dashboard-up-body {
+		height: 95px;
+		/* background-color: #f5f5f5; */
+	}
+	.dashboard-icon {
+		margin: 0px 10px;
+	}
+	.dashboard-icon-large {
+		margin: 0px 20px;
+	}
+	.dashboard-data-td {
+		text-align: left;
+	}
+	.dashboard-table .dashboard-icon-td {
+		width: 28%
+	}
+	.statistic-box {
+		padding: 10px 20px;
+		margin: 15px;
+		background-color: white;
+	}
+	.statistic-box .statistic-title {
+		font-size: 12px;
+		text-transform: none;
+	}
+	.statistic-box .statistic-value {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.col-sm-6 {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.col-sm-large {
+		width: 33%;
+		padding-right: 8%;
+    	padding-left: 8%;
+	}
+	.dashboard-table .dashboard-icon-td-large {
+		width: 40%
+	}
+	.dashboard-head {
+		border: 1px solid #dddddd;
+		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fdfdfd),color-stop(1,#e5eaf0));
+		height: 50px;
+		line-height: 50px;
+		color: #333;
+	  	font: 14px/14px Arial,"微软雅黑";
+	  	font-weight: bold;
+	  	padding: 17px;
+	}
+	.dashboard_chart {
+		width:92%;
+		height:340px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+	}
+	.dashboard_pie {
+		width:100%;
+		height:415px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+		padding:20px 0px;
+	}
+	.setDateDiv {
+		width:100%;
+		height:75px;
+		padding:20px 72px;
+	}
+}
+@media screen and (min-width: 1367px) {
+	.dashboard-up-body {
+		height: 100px;
+		/* background-color: #f5f5f5; */
+	}
+	.dashboard-icon {
+		margin: 0px 12px;
+	}
+	.dashboard-icon-large {
+		margin: 0px 30px;
+	}
+	.dashboard-data-td {
+		text-align: left;
+	}
+	.dashboard-table .dashboard-icon-td {
+		width: 35%
+	}
+	.statistic-box {
+		padding: 20px 20px;
+		margin: 8px 35px;
+		background-color: white;
+	}
+	.statistic-box .statistic-title {
+		font-size: 13px;
+		text-transform: none;
+	}
+	.statistic-box .statistic-value {
+		font-size: 22px;
+		font-weight: bold;
+	}
+	.col-sm-6 {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.col-sm-large {
+		width: 33%;
+		padding-right: 8%;
+    	padding-left: 8%;
+	}
+	.dashboard-table .dashboard-icon-td-large {
+		width: 50%
+	}
+	.dashboard-head {
+		border: 1px solid #dddddd;
+		/* border-top-right-radius: 5px;
+	    border-top-left-radius: 5px; */
+		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fdfdfd),color-stop(1,#e5eaf0));
+		height: 60px;
+		line-height: 60px;
+		color: #333;
+	  	font: 14px/14px Arial,"微软雅黑";
+	  	font-weight: bold;
+	  	padding: 22px;
+	}
+	.dashboard_chart {
+		width:92%;
+		height:435px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+	}
+	.dashboard_pie {
+		width:100%;
+		height:510px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+		padding:20px 30px;
+	}
+	.setDateDiv {
+		width:100%;
+		height:75px;
+		padding:20px 85px;
+	}
+}
+@media screen and (min-width: 1680px) {
+	.dashboard-up-body {
+		height: 170px;
+		/* background-color: #f5f5f5; */
+	}
+	.dashboard-icon {
+		margin: 0px 12px;
+	}
+	.dashboard-icon-large {
+		margin: 0px 30px;
+	}
+	.dashboard-data-td {
+		text-align: left;
+	}
+	.dashboard-table .dashboard-icon-td {
+		width: 35%
+	}
+	.statistic-box {
+		padding: 30px 60px;
+		margin: 30px 20px;
+		background-color: white;
+	}
+	.statistic-box .statistic-title {
+		font-size: 13px;
+		text-transform: none;
+	}
+	.statistic-box .statistic-value {
+		font-size: 22px;
+		font-weight: bold;
+	}
+	.col-sm-6 {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.col-sm-large {
+		width: 33%;
+		padding-right: 8%;
+    	padding-left: 8%;
+	}
+	.dashboard-table .dashboard-icon-td-large {
+		width: 50%
+	}
+	.dashboard-head {
+		border: 1px solid #dddddd;
+		/* border-top-right-radius: 5px;
+	    border-top-left-radius: 5px; */
+		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fdfdfd),color-stop(1,#e5eaf0));
+		height: 60px;
+		line-height: 60px;
+		color: #333;
+	  	font: 14px/14px Arial,"微软雅黑";
+	  	font-weight: bold;
+	  	padding: 22px;
+	}
+	.dashboard_chart {
+		width:92%;
+		height:500px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+	}
+	.dashboard_pie {
+		width:100%;
+		height:575px;
+		text-align: center;
+		padding-left:0px;
+		margin-left:auto; 
+		margin-right:auto;
+		padding:41px 30px;
+	}
+	.setDateDiv {
+		width:100%;
+		height:75px;
+		padding:20px 85px;
+	}
+}
+
